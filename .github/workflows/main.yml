@@ -4,10 +4,14 @@ on:
   push:
     branches: [ main ]
   pull_request:
+
 jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: ./THBuoi02
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-java@v6
@@ -15,6 +19,7 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
+          cache-dependency-path: THBuoi02/pom.xml
       - name: Build và kiểm thử (gồm Testcontainers nếu có)
         run: |
           chmod +x mvnw
